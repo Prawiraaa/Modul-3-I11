@@ -81,7 +81,7 @@ echo 'server {
 ```
 > /etc/nginx/sites-available/granz.channel.i07.com <br>
 
-Also do this command
+Also do this command <br>
 ```service php7.3-fpm start```<br>
 ```service nginx restart```<br>
 
