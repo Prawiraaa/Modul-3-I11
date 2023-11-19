@@ -52,3 +52,37 @@ And then unzip the file by using <br>
 ```unzip filename.zip``` <br>
 The folder should be called modul-3 and it will contains the following files <br>
 ![folder6](https://cdn.discordapp.com/attachments/934661338934943774/1175804245132443729/image.png?ex=656c9009&is=655a1b09&hm=2e0a479e3eb0d8023a5aef09cbc0bc1b80c5f8bb15e4c2d8c0535d470d67fe53&)
+
+After that do this command and scripting <br>
+
+```cp /etc/nginx/sites-available/default /etc/nginx/sites-available/granz.channel.i07.com```<br>
+```ln -s /etc/nginx/sites-available/granz.channel.i07.com /etc/nginx/sites-enabled/```<br>
+```rm /etc/nginx/sites-enabled/default```<br>
+
+```
+echo 'server {
+    listen 80;
+    server_name _;
+
+    root /var/www/granz.channel.i07.com;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}'
+```
+> /etc/nginx/sites-available/granz.channel.i07.com <br>
+
+Also do this command
+```service php7.3-fpm start```<br>
+```service nginx restart```<br>
+
+After nginx restart do lynx local host in worker and lynx 10.79.1.2 in client <br>
